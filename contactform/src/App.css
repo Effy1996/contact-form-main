@@ -140,11 +140,11 @@ input[name="email"] {
   margin-top: 5px;
   width: 270px;
   cursor: pointer;
+}
 
-  &:has(input:checked) {
+.queryBtn.active {
     background-color: var(--green-lighter);
     border: 2px solid var(--green-medium);
-  }
 }
 
 .query input, .checkConsent input {

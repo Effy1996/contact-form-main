@@ -17,15 +17,38 @@ function MyForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-   
+   useEffect(() => {
+        let queryBtns = document.querySelectorAll(".queryBtn");
+        let queryInput = document.querySelector(".query-input");
+        queryBtns.forEach(queryBtn => {
+            queryBtn.addEventListener("click", () => {
+                // Remove "active" class from all buttons
+                queryBtns.forEach(btn => btn.classList.remove("active"));
+
+                // Add "active" class to the clicked one
+                queryBtn.classList.add("active");
+                
+            });
+        });
+
+        // Cleanup event listeners when component unmounts
+    return () => {
+        queryBtns.forEach(queryBtn => {
+            queryBtn.removeEventListener("click", () => {});
+        });
+    };
+    }, [])
 
     const handleChange = (e) => {
-        e.preventDefault();
         const {name, value, type, checked } = e.target;
 
         setInputs(prev => ({...prev, [name]: type === 'checkbox' ? checked : value,}))
-        console.log(`${checked}: ${value}`);
     }
+
+    const handleQuerySelect = (queryType) => {
+        console.log("Clicked:", queryType);
+        setInputs((values) => ({ ...values, query: queryType })); 
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -76,16 +99,14 @@ function MyForm() {
             <label>Query Type * 
           
             <div className='qtypes'>
-                    <div className="query" tabIndex={0}>
-                        <input type='radio' name='query' className='query-btn' value="General Enquiry"  
-                        checked={inputs.query === "General Enquiry"} onChange={handleChange}/>
-                        <label htmlFor='general'>General Enquiry</label>
-                    </div>
-                    <div className="query" tabIndex={0}>
-                        <input type='radio' name='query' className='query-btn' value="Support Request"  
+                    <label htmlFor='general' className="queryBtn" onClick={() => handleQuerySelect("General Enquiry")}>
+                        <input type='radio' name='query' className='query-input' value="General Enquiry"  
+                        checked={inputs.query === "General Enquiry"} onChange={handleChange} />
+                        General Enquiry</label>
+                    <label htmlFor='support' className="queryBtn" onClick={() => handleQuerySelect("Support Request")}>
+                        <input type='radio' name='query' className='query-input' value="Support Request"  
                         checked={inputs.query === "Support Request"} onChange={handleChange}/>
-                        <label htmlFor='support'>Support Request</label>
-                    </div>
+                    Support Request</label>
             </div>
                 {errors.query && <div className='error'>{errors.query}</div>}
             </label>
@@ -94,9 +115,9 @@ function MyForm() {
                 <textarea name='message' value={inputs.message || ""} onChange={handleChange} className={errors.message ? "inputError" : ""}/>
                 {errors.message && <div className='error'>{errors.message}</div>}
             </label>
-            <div className='checkConsent'>
+            <div className='checkConsent' onClick={() => setInputs(prev => ({ ...prev, consent: !prev.consent }))}>
                 
-                    <input type='checkbox' name='consent' value="consent" onChange={handleChange} checked={inputs.consent}/>
+                <input type='checkbox' name='consent' onChange={handleChange} checked={inputs.consent}/>
                 
                 <p>I consent to being contacted by the team *</p>
             </div>
