@@ -147,7 +147,7 @@ input[name="email"] {
     border: 2px solid var(--green-medium);
 }
 
-.query input, .checkConsent input {
+.queryBtn input, .checkConsent input {
   width: auto;
   accent-color: var(--green-medium);
   cursor: pointer;
