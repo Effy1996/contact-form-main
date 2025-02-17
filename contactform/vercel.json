@@ -1,11 +1,10 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/index.html" }
-    ],
-    "functions": {
-      "api/ssr.js": {
-        "runtime": "@vercel/node"
-      }
+  "builds": [
+    { "src": "package.json", "use": "@vercel/static-build", "config": { "distDir": "dist" } }
+  ], 
+  "functions": {
+    "api/ssr.js": {
+      "runtime": "nodejs18.x"
     }
   }
-  
+}

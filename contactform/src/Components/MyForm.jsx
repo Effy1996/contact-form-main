@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import SuccessMsg from './SuccessMsg';
 
 function MyForm() {
@@ -17,7 +17,14 @@ function MyForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    
+    useEffect(() => {
+        let queryBtns = document.querySelectorAll(".query-btn");
+        queryBtns.forEach(queryBtn => {
+            queryBtn.addEventListener("click", () => {
+                queryBtn.classList.add("active");
+            })
+        })
+    }, [queryBtns]);
 
     const handleChange = (e) => {
         e.preventDefault();
@@ -77,12 +84,12 @@ function MyForm() {
           
             <div className='qtypes'>
                     <div className="query" tabIndex={0}>
-                        <input type='radio' name='query' id='general' value="General Enquiry"  
+                        <input type='radio' name='query' className='query-btn' value="General Enquiry"  
                         checked={inputs.query === "General Enquiry"} onChange={handleChange}/>
                         <label htmlFor='general'>General Enquiry</label>
                     </div>
                     <div className="query" tabIndex={0}>
-                        <input type='radio' name='query' id='support' value="Support Request"  
+                        <input type='radio' name='query' className='query-btn' value="Support Request"  
                         checked={inputs.query === "Support Request"} onChange={handleChange}/>
                         <label htmlFor='support'>Support Request</label>
                     </div>
