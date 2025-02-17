@@ -130,7 +130,7 @@ input[name="email"] {
   margin-bottom: 10px;
 }
 
-.query {
+.queryBtn {
   display: flex;
   align-items: center;
   gap: 5px;
