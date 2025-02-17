@@ -17,14 +17,7 @@ function MyForm() {
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    useEffect(() => {
-        let queryBtns = document.querySelectorAll(".query-btn");
-        queryBtns.forEach(queryBtn => {
-            queryBtn.addEventListener("click", () => {
-                queryBtn.classList.add("active");
-            })
-        })
-    }, [queryBtns]);
+   
 
     const handleChange = (e) => {
         e.preventDefault();
