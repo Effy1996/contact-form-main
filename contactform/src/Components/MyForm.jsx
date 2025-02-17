@@ -119,7 +119,7 @@ function MyForm() {
                 
                 <input type='checkbox' name='consent' onChange={handleChange} checked={inputs.consent}/>
                 
-                <p>I consent to being contacted by the team *</p>
+                <label htmlFor="consent">I consent to being contacted by the team *</label>
             </div>
                 {errors.consent && <div className='error'>{errors.consent}</div>}
                 <br />
